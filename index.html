@@ -404,6 +404,54 @@ th{
     border-right:1px solid rgba(255,255,255,0.12);
 }
 
+th.result-header{
+    background: linear-gradient(45deg,#047857,#065f46);
+}
+
+th.total-header{
+    background:rgb(14, 36, 63);
+    color:#dbeafe;
+    font-weight:700;
+}
+
+td.total-cell{
+    background:#dbeafe;
+    color:#1e3a8a;
+    font-weight:700;
+}
+
+th.average-header{
+    background:#0c3429;
+    color:#bff8d3;
+    font-weight:700;
+}
+
+td.average-cell{
+    background:#dcfce7;
+    color:#065f46;
+    font-weight:700;
+}
+
+body.dark th.total-header{
+    background:#1d4ed8;
+    color:#eff6ff;
+}
+
+body.dark td.total-cell{
+    background:#1e3a8a;
+    color:#dbeafe;
+}
+
+body.dark th.average-header{
+    background:#047857;
+    color:#f0fdf4;
+}
+
+body.dark td.average-cell{
+    background:#065f46;
+    color:#dcfce7;
+}
+
 td{
     border-right:1px solid rgba(15,23,42,0.06);
     border-bottom:1px solid rgba(15,23,42,0.08);
@@ -651,14 +699,14 @@ Track student performance easily
     <th rowspan="2">#</th>
     <th rowspan="2">Name</th>
 
-    <th id="quizHeader" style="display:none;">Quiz</th>
-    <th id="labHeader" style="display:none;">Lab</th>
-    <th id="assignHeader" style="display:none;">Assignment</th>
-    <th id="attHeader" style="display:none;">Attendance</th>
+    <th id="quizHeader" style="display:none;">Quiz 20%</th>
+    <th id="labHeader" style="display:none;">Lab 30%</th>
+    <th id="assignHeader" style="display:none;">Assignment 10%</th>
+    <th id="attHeader" style="display:none;">Attendance 10%</th>
 
-    <th id="examHeader" style="display:none;">Exam</th>
-    <th rowspan="2">Final</th>
-    <th rowspan="2">Equivalent</th>
+    <th id="examHeader" style="display:none;">Exam 30%</th>
+    <th rowspan="2" class="result-header">Final</th>
+    <th rowspan="2" class="result-header">Equivalent</th>
     <th rowspan="2">Remark</th>
     <th rowspan="2">Action</th>
 </tr>
@@ -857,8 +905,14 @@ function renderHeaders(){
             sub.innerHTML += `<th>${label}${i+1}</th>`;
         }
 
-        sub.innerHTML += `<th>Total</th><th>Avg%</th>`;
+        sub.innerHTML += `<th class="total-header">Total</th><th class="average-header">Avg%</th>`;
     }
+
+    document.getElementById("quizHeader").innerText = "Quiz 20%";
+    document.getElementById("labHeader").innerText = "Lab 30%";
+    document.getElementById("assignHeader").innerText = "Assignment 10%";
+    document.getElementById("attHeader").innerText = "Attendance 10%";
+    document.getElementById("examHeader").innerText = "Exam 30%";
 
     addGroup("quiz", structure.quiz, "Q");
     addGroup("lab", structure.lab, "L");
@@ -939,8 +993,8 @@ function renderGroup(arr, weight, maxCount){
         cells += `<td>${arr[i] !== undefined ? arr[i] : "-"}</td>`;
     }
 
-    cells += `<td>${total}</td>`;
-    cells += `<td>${weighted.toFixed(2)}</td>`;
+    cells += `<td class="total-cell">${total}</td>`;
+    cells += `<td class="average-cell">${weighted.toFixed(2)}</td>`;
 
     return cells;
 
